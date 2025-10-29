@@ -1,20 +1,20 @@
 from pydantic import BaseModel
-from typing import Optional
 
 class EventBase(BaseModel):
     title: str
-    reference: str
+    reference: str | None = None
     description: str
 
 class EventCreate(EventBase):
     pass
 
 class EventUpdate(BaseModel):
-    title: Optional[str] = None
-    reference: Optional[str] = None
-    description: Optional[str] = None
+    title: str | None = None
+    reference: str | None = None
+    description: str | None = None
 
 class EventOut(EventBase):
     id: int
+
     class Config:
-        from_attributes = True
+        orm_mode = True

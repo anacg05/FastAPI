@@ -1,13 +1,11 @@
 from fastapi import FastAPI
 from core.db import Base, engine
-from core.config import settings
 from api.router import api_router
 
+app = FastAPI(title="Jesus API", version="0.1.0")
+
+# Cria as tabelas (apenas na primeira vez)
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title=settings.APP_NAME, version=settings.APP_VERSION)
+# Inclui as rotas
 app.include_router(api_router)
-
-@app.get("/")
-def root():
-    return {"msg": "Jesus API is live!"}
